@@ -1,24 +1,24 @@
 // src/components/Candado.jsx
 import { useState } from 'react';
-import { datosCliente } from '../data/cliente';
 
-function Candado({ alDesbloquear }) {
+// Ahora recibimos los "datos" mágicos desde Firebase
+function Candado({ datos, alDesbloquear }) {
   const [respuesta, setRespuesta] = useState('');
   const [error, setError] = useState(false);
 
   const verificarRespuesta = () => {
-    // Compara lo que escribe el usuario con la fecha guardada en cliente.js
-    if (respuesta === datosCliente.fechaAniversario) {
+    // Comparamos con la fecha que guardamos en tu base de datos
+    if (respuesta === datos.fechaAniversario) {
       setError(false);
-      alDesbloquear(); // Si es correcto, le avisa a la App que abra el regalo
+      alDesbloquear(); 
     } else {
-      setError(true); // Si falla, muestra el error
+      setError(true); 
     }
   };
 
   return (
     <div className="pantalla-bloqueo">
-      <h2>Un regalo especial 🎁</h2>
+      <h2>Un regalo especial para {datos.nombrePareja} 🎁</h2>
       <p>Para descubrir tu sorpresa, ingresa la fecha de nuestro aniversario (Día-Mes):</p>
       
       <input 
@@ -30,7 +30,7 @@ function Candado({ alDesbloquear }) {
       
       <button onClick={verificarRespuesta}>Desbloquear</button>
       
-      {error && <p className="error">{datosCliente.mensajeError}</p>}
+      {error && <p className="error">Mmm... esa no es la fecha. ¡Intenta de nuevo!</p>}
     </div>
   );
 }

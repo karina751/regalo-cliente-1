@@ -1,13 +1,14 @@
 // src/components/Regalo.jsx
-import { datosCliente } from '../data/cliente';
+import { datosCliente } from '../data/cliente'; // Textos por defecto
 import LineaDeTiempo from './LineaDeTiempo';
-import VideoSorpresa from './VideoSorpresa'; // Importamos el video
+import VideoSorpresa from './VideoSorpresa';
 
-function Regalo() {
+// Recibimos los datos de Firebase
+function Regalo({ datos }) {
   return (
     <div className="contenedor-regalo">
-      <h1>{datosCliente.mensajeBienvenida}</h1>
-      <p className="dedicatoria">{datosCliente.mensajeDedicatoria}</p>
+      <h1>¡Feliz Aniversario! ❤️</h1>
+      <p className="dedicatoria">Gracias por cada momento juntos. Dale play a nuestra canción...</p>
 
       <div className="reproductor-spotify">
         <iframe 
@@ -25,8 +26,8 @@ function Regalo() {
       
       <LineaDeTiempo />
       
-      {/* AGREGAMOS EL VIDEO AL FINAL */}
-      <VideoSorpresa />
+      {/* Le pasamos los datos de Firebase al video */}
+      <VideoSorpresa datos={datos} />
       
     </div>
   );
