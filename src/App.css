@@ -1,0 +1,196 @@
+/* src/App.css */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fdf6f0;
+  color: #5a4636;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.pantalla-bloqueo, .contenedor-principal {
+  background: #ffffff;
+  padding: 40px 20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  text-align: center;
+  max-width: 350px;
+  width: 90%;
+}
+
+input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin: 15px 0;
+  width: 80%;
+  text-align: center;
+}
+
+button {
+  background-color: #e56b6f;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 85%;
+  transition: transform 0.1s;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+.error {
+  color: #e56b6f;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+
+
+/* ANIMACIÓN Y ESTILOS DEL REGALO (Añadir al final de App.css) */
+.contenedor-regalo {
+  background: #ffffff;
+  padding: 30px 20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  
+  /* Esto hace que el regalo entre flotando suavemente */
+  animation: aparecer 0.8s ease-out forwards;
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.dedicatoria {
+  font-size: 16px;
+  color: #777;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.reproductor-spotify {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.pista {
+  font-size: 14px;
+  color: #aaa;
+  margin-top: 20px;
+}
+
+
+/* ESTILOS DE LA LÍNEA DE TIEMPO (Al final de App.css) */
+.seccion-timeline {
+  margin-top: 40px;
+  text-align: left; /* Alineamos el texto a la izquierda para la historia */
+}
+
+.titulo-seccion {
+  text-align: center;
+  color: #e56b6f;
+  margin-bottom: 30px;
+  font-weight: 400;
+}
+
+.timeline-contenedor {
+  position: relative;
+  padding-left: 20px;
+}
+
+/* Esta es la línea vertical gris que conecta todo */
+.timeline-contenedor::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 5px; /* Posición de la línea */
+  width: 2px;
+  background: #f0e6df;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 35px;
+}
+
+/* El círculo rojo/rosado que marca la fecha */
+.timeline-punto {
+  position: absolute;
+  left: -20px; /* Lo tiramos a la izquierda para que pise la línea */
+  top: 5px;
+  width: 12px;
+  height: 12px;
+  background: #e56b6f;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px #ffffff; /* Borde blanco para separarlo de la línea */
+}
+
+.timeline-contenido h4 {
+  margin: 5px 0;
+  font-size: 18px;
+  color: #4a3b2c;
+}
+
+.timeline-fecha {
+  font-size: 12px;
+  color: #e56b6f;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.timeline-foto {
+  width: 100%;
+  border-radius: 12px;
+  margin: 10px 0;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.timeline-contenido p {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+  margin: 0;
+}
+
+
+/* ESTILOS DEL VIDEO FINAL (Al final de App.css) */
+.seccion-video {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.texto-video {
+  font-size: 15px;
+  color: #777;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.video-contenedor {
+  border-radius: 12px;
+  overflow: hidden; /* Esto hace que las esquinas del video no se salgan del borde */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  background-color: #000; /* Fondo negro por si el video tarda en cargar */
+}
+
+.video-player {
+  width: 100%;
+  display: block; /* Elimina márgenes raros debajo del video */
+  border-radius: 12px;
+}
