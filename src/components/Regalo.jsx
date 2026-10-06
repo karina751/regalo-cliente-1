@@ -2,14 +2,12 @@
 import LineaDeTiempo from './LineaDeTiempo';
 import VideoSorpresa from './VideoSorpresa';
 
-// Recibimos los datos de Firebase
 function Regalo({ datos }) {
   return (
     <div className="contenedor-regalo">
       <h1>¡Feliz Aniversario! ❤️</h1>
       <p className="dedicatoria">Gracias por cada momento juntos. Dale play a nuestra canción...</p>
 
-      {/* Reproductor de Spotify dinámico */}
       <div className="reproductor-spotify">
         <iframe 
           style={{ borderRadius: '12px' }} 
@@ -24,11 +22,10 @@ function Regalo({ datos }) {
         ></iframe>
       </div>
       
-      <LineaDeTiempo />
+      {/* Le pasamos los datos para que dibuje el álbum de fotos y textos */}
+      <LineaDeTiempo datos={datos} />
       
-      {/* Video sorpresa */}
       <VideoSorpresa datos={datos} />
-      
     </div>
   );
 }

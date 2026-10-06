@@ -1,25 +1,32 @@
 // src/components/LineaDeTiempo.jsx
-import { datosCliente } from '../data/cliente';
 
-function LineaDeTiempo() {
+function LineaDeTiempo({ datos }) {
+  // Verificamos si el cliente cargó su historia en Firebase
+  const textos = datos.textosHistoria || [];
+  const fotos = datos.fotosHistoria || [];
+
+  // Si no cargó nada, no mostramos esta sección
+  if (textos.length === 0) return null;
+
   return (
-    <div className="seccion-timeline">
-      <h3 className="titulo-seccion">Nuestra historia</h3>
+    <div className="seccion-album">
+      <h3 className="titulo-seccion">Nuestra Historia ❤️</h3>
       
-      <div className="timeline-contenedor">
-        {/* Recorremos cada recuerdo y lo dibujamos */}
-        {datosCliente.recuerdos.map((recuerdo) => (
-          <div key={recuerdo.id} className="timeline-item">
-            {/* El puntito decorativo */}
-            <div className="timeline-punto"></div>
-            
-            {/* El contenido de la foto */}
-            <div className="timeline-contenido">
-              <span className="timeline-fecha">{recuerdo.fecha}</span>
-              <h4>{recuerdo.titulo}</h4>
-              <img src={recuerdo.imagen} alt={recuerdo.titulo} className="timeline-foto" />
-              <p>{recuerdo.texto}</p>
-            </div>
+      <div className="album-contenedor">
+        {textos.map((parrafo, index) => (
+          <div key={index} className="tarjeta-recuerdo">
+            {/* Si hay una foto para este momento, la mostramos */}
+            {fotos[index] && (
+              <div className="foto-recuerdo-wrapper">
+                <img 
+                  src={fotos[index]} 
+                  alt={`Recuerdo ${index + 1}`} 
+                  className="foto-recuerdo"
+                />
+              </div>
+            )}
+            {/* El párrafo de la historia */}
+            <p className="texto-recuerdo">{parrafo}</p>
           </div>
         ))}
       </div>
