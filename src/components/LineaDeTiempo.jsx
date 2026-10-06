@@ -1,11 +1,9 @@
 // src/components/LineaDeTiempo.jsx
 
 function LineaDeTiempo({ datos }) {
-  // Verificamos si el cliente cargó su historia en Firebase
   const textos = datos.textosHistoria || [];
   const fotos = datos.fotosHistoria || [];
 
-  // Si no cargó nada, no mostramos esta sección
   if (textos.length === 0) return null;
 
   return (
@@ -15,17 +13,16 @@ function LineaDeTiempo({ datos }) {
       <div className="album-contenedor">
         {textos.map((parrafo, index) => (
           <div key={index} className="tarjeta-recuerdo">
-            {/* Si hay una foto para este momento, la mostramos */}
-            {fotos[index] && (
+            {fotos[index] && fotos[index].trim() !== "" && (
               <div className="foto-recuerdo-wrapper">
                 <img 
                   src={fotos[index]} 
                   alt={`Recuerdo ${index + 1}`} 
                   className="foto-recuerdo"
+                  onError={(e) => { e.target.style.display = 'none'; }}
                 />
               </div>
             )}
-            {/* El párrafo de la historia */}
             <p className="texto-recuerdo">{parrafo}</p>
           </div>
         ))}

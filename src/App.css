@@ -55,7 +55,7 @@ button:active {
 
 
 
-/* ANIMACIÓN Y ESTILOS DEL REGALO (Añadir al final de App.css) */
+/* ANIMACIÓN Y ESTILOS DEL REGALO */
 .contenedor-regalo {
   background: #ffffff;
   padding: 30px 20px;
@@ -93,10 +93,10 @@ button:active {
 }
 
 
-/* ESTILOS DE LA LÍNEA DE TIEMPO (Al final de App.css) */
+/* ESTILOS DE LA LÍNEA DE TIEMPO / ÁLBUM DE RECUERDOS */
 .seccion-timeline {
   margin-top: 40px;
-  text-align: left; /* Alineamos el texto a la izquierda para la historia */
+  text-align: left;
 }
 
 .titulo-seccion {
@@ -111,13 +111,12 @@ button:active {
   padding-left: 20px;
 }
 
-/* Esta es la línea vertical gris que conecta todo */
 .timeline-contenedor::before {
   content: '';
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 5px; /* Posición de la línea */
+  left: 5px;
   width: 2px;
   background: #f0e6df;
 }
@@ -127,16 +126,15 @@ button:active {
   margin-bottom: 35px;
 }
 
-/* El círculo rojo/rosado que marca la fecha */
 .timeline-punto {
   position: absolute;
-  left: -20px; /* Lo tiramos a la izquierda para que pise la línea */
+  left: -20px;
   top: 5px;
   width: 12px;
   height: 12px;
   background: #e56b6f;
   border-radius: 50%;
-  box-shadow: 0 0 0 4px #ffffff; /* Borde blanco para separarlo de la línea */
+  box-shadow: 0 0 0 4px #ffffff;
 }
 
 .timeline-contenido h4 {
@@ -168,7 +166,56 @@ button:active {
 }
 
 
-/* ESTILOS DEL VIDEO FINAL (Al final de App.css) */
+/* ESTILOS DEL ÁLBUM DE RECUERDOS DINÁMICO */
+.seccion-album {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+.album-contenedor {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.tarjeta-recuerdo {
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.foto-recuerdo-wrapper {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.foto-recuerdo {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 12px;
+  margin: 10px 0;
+  display: block;
+}
+
+.texto-recuerdo {
+  font-size: 1rem;
+  color: #333333;
+  line-height: 1.5;
+  margin: 0;
+  text-align: center;
+}
+
+
+/* ESTILOS DEL VIDEO FINAL */
 .seccion-video {
   margin-top: 50px;
   margin-bottom: 20px;
@@ -184,23 +231,13 @@ button:active {
 
 .video-contenedor {
   border-radius: 12px;
-  overflow: hidden; /* Esto hace que las esquinas del video no se salgan del borde */
+  overflow: hidden;
   box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-  background-color: #000; /* Fondo negro por si el video tarda en cargar */
+  background-color: #000;
 }
 
 .video-player {
   width: 100%;
-  display: block; /* Elimina márgenes raros debajo del video */
+  display: block;
   border-radius: 12px;
-}
-
-
-/* Estilo para que las fotos del álbum no se pasen de tamaño */
-.foto-recuerdo {
-  width: 100%;
-  max-height: 250px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin: 10px 0;
 }
