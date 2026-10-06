@@ -4,14 +4,16 @@ import React from 'react';
 function LineaDeTiempo({ datos }) {
   const textos = datos.textosHistoria || [];
   const fotos = datos.fotosHistoria || [];
+  
+  // Título de la sección de la historia (por defecto "Nuestra Historia ❤️")
+  const tituloSeccion = datos.tituloHistoria || "Nuestra Historia ❤️";
 
   if (textos.length === 0) return null;
 
   return (
     <div className="seccion-album">
-      <h3 className="titulo-seccion">Nuestra Historia ❤️</h3>
+      <h3 className="titulo-seccion">{tituloSeccion}</h3>
       
-      {/* Contenedor tipo carrusel vertical de momentos */}
       <div className="album-carrusel-vertical">
         {textos.map((parrafo, index) => (
           <div key={index} className="tarjeta-momento">
