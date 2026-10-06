@@ -65,7 +65,6 @@ button:active {
   max-width: 400px;
   width: 90%;
   
-  /* Esto hace que el regalo entre flotando suavemente */
   animation: aparecer 0.8s ease-out forwards;
 }
 
@@ -93,7 +92,7 @@ button:active {
 }
 
 
-/* ESTILOS DE LA LÍNEA DE TIEMPO / ÁLBUM DE RECUERDOS */
+/* ESTILOS DE LA LÍNEA DE TIEMPO / ANTIGUO */
 .seccion-timeline {
   margin-top: 40px;
   text-align: left;
@@ -102,122 +101,84 @@ button:active {
 .titulo-seccion {
   text-align: center;
   color: #e56b6f;
-  margin-bottom: 30px;
-  font-weight: 400;
-}
-
-.timeline-contenedor {
-  position: relative;
-  padding-left: 20px;
-}
-
-.timeline-contenedor::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 5px;
-  width: 2px;
-  background: #f0e6df;
-}
-
-.timeline-item {
-  position: relative;
-  margin-bottom: 35px;
-}
-
-.timeline-punto {
-  position: absolute;
-  left: -20px;
-  top: 5px;
-  width: 12px;
-  height: 12px;
-  background: #e56b6f;
-  border-radius: 50%;
-  box-shadow: 0 0 0 4px #ffffff;
-}
-
-.timeline-contenido h4 {
-  margin: 5px 0;
-  font-size: 18px;
-  color: #4a3b2c;
-}
-
-.timeline-fecha {
-  font-size: 12px;
-  color: #e56b6f;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.timeline-foto {
-  width: 100%;
-  border-radius: 12px;
-  margin: 10px 0;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-.timeline-contenido p {
-  font-size: 14px;
-  color: #666;
-  line-height: 1.5;
-  margin: 0;
+  margin-bottom: 20px;
+  font-weight: 500;
 }
 
 
-/* ESTILOS DEL ÁLBUM DE RECUERDOS DINÁMICO */
+/* ESTILOS DEL ÁLBUM TIPO HISTORIA / CARRUSEL VERTICAL */
 .seccion-album {
   width: 100%;
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 0 15px;
+  max-width: 100%;
+  margin: 30px auto;
   box-sizing: border-box;
 }
 
-.album-contenedor {
+.album-carrusel-vertical {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 30px;
+  max-height: 500px; /* Altura máxima para permitir desplazamiento interno */
+  overflow-y: auto;  /* Habilita el desplazamiento fluido tipo carrusel/story */
+  padding: 10px 5px;
+  scroll-behavior: smooth;
 }
 
-.tarjeta-recuerdo {
-  background: #ffffff;
-  padding: 15px;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+/* Estilo estético para la barra de desplazamiento */
+.album-carrusel-vertical::-webkit-scrollbar {
+  width: 5px;
+}
+
+.album-carrusel-vertical::-webkit-scrollbar-thumb {
+  background: #f0e6df;
+  border-radius: 10px;
+}
+
+.tarjeta-momento {
+  background: #faf6f2;
+  padding: 20px;
+  border-radius: 18px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06);
   text-align: center;
+  border: 1px solid #f0e6df;
+  flex-shrink: 0;
 }
 
 .foto-recuerdo-wrapper {
   width: 100%;
   overflow: hidden;
   border-radius: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 15px;
 }
 
 .foto-recuerdo {
   width: 100%;
-  height: 250px;
+  height: 240px;
   object-fit: cover;
   object-position: center;
   border-radius: 12px;
-  margin: 10px 0;
   display: block;
 }
 
 .texto-recuerdo {
-  font-size: 1rem;
-  color: #333333;
-  line-height: 1.5;
-  margin: 0;
+  font-size: 0.95rem;
+  color: #5a4636;
+  line-height: 1.6;
+  margin: 0 0 10px 0;
   text-align: center;
+}
+
+.indicador-pagina {
+  font-size: 0.75rem;
+  color: #b59b8a;
+  letter-spacing: 1px;
+  font-weight: 600;
 }
 
 
 /* ESTILOS DEL VIDEO FINAL */
 .seccion-video {
-  margin-top: 50px;
+  margin-top: 40px;
   margin-bottom: 20px;
   text-align: center;
 }
