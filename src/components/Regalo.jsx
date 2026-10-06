@@ -6,7 +6,7 @@ import VideoSorpresa from './VideoSorpresa';
 function Regalo({ datos }) {
   // Si en Firebase pusiste un título, lo usa; si no, por defecto muestra "¡Feliz Aniversario! ❤️"
   const tituloPrincipal = datos.tituloRegalo || "¡Feliz Aniversario! ❤️";
-  const dedicatoria = datos.dedicatoria || "Gracias por cada momento juntos. Dale play a nuestra canción...";
+  const dedicatoria = datos.dedicatoria || "Gracias por cada momento juntos";
 
   return (
     <div className="contenedor-regalo">
