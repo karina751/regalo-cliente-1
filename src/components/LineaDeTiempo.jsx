@@ -4,8 +4,6 @@ import React from 'react';
 function LineaDeTiempo({ datos }) {
   const textos = datos.textosHistoria || [];
   const fotos = datos.fotosHistoria || [];
-  
-  // Título de la sección de la historia (por defecto "Nuestra Historia ❤️")
   const tituloSeccion = datos.tituloHistoria || "Nuestra Historia ❤️";
 
   if (textos.length === 0) return null;
@@ -14,7 +12,8 @@ function LineaDeTiempo({ datos }) {
     <div className="seccion-album">
       <h3 className="titulo-seccion">{tituloSeccion}</h3>
       
-      <div className="album-carrusel-vertical">
+      {/* Contenedor carrusel horizontal */}
+      <div className="album-carrusel-horizontal">
         {textos.map((parrafo, index) => (
           <div key={index} className="tarjeta-momento">
             {fotos[index] && fotos[index].trim() !== "" && (
@@ -28,7 +27,7 @@ function LineaDeTiempo({ datos }) {
               </div>
             )}
             <p className="texto-recuerdo">{parrafo}</p>
-            <span className="indicador-pagina">{index + 1} / {textos.length}</span>
+            <span className="indicador-pagina">Recuerdo {index + 1} de {textos.length}</span>
           </div>
         ))}
       </div>

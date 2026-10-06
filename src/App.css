@@ -2,9 +2,9 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #fdf6f0;
-  color: #5a4636;
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(135deg, #ffccd5, #ffe5ec); /* Fondo vivo y romántico */
+  color: #4a1525;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,141 +14,148 @@ body {
 .pantalla-bloqueo, .contenedor-principal {
   background: #ffffff;
   padding: 40px 20px;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  border-radius: 25px;
+  box-shadow: 0 15px 35px rgba(229, 107, 111, 0.2);
   text-align: center;
-  max-width: 350px;
+  max-width: 380px;
   width: 90%;
+  border: 2px solid #ff758c;
 }
 
 input {
-  padding: 10px;
+  padding: 12px;
   font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  border: 2px solid #ffb3c1;
+  border-radius: 12px;
   margin: 15px 0;
   width: 80%;
   text-align: center;
+  outline: none;
+}
+
+input:focus {
+  border-color: #ff477e;
 }
 
 button {
-  background-color: #e56b6f;
+  background: linear-gradient(135deg, #ff477e, #ff758c);
   color: white;
   border: none;
-  padding: 12px 20px;
+  padding: 14px 20px;
   font-size: 16px;
-  border-radius: 8px;
+  font-weight: 600;
+  border-radius: 12px;
   cursor: pointer;
   width: 85%;
-  transition: transform 0.1s;
+  box-shadow: 0 5px 15px rgba(255, 71, 126, 0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 button:active {
   transform: scale(0.95);
+  box-shadow: 0 2px 8px rgba(255, 71, 126, 0.4);
 }
 
 .error {
-  color: #e56b6f;
+  color: #d90429;
   font-size: 14px;
   margin-top: 10px;
+  font-weight: 600;
 }
 
-
-
-/* ANIMACIÓN Y ESTILOS DEL REGALO */
+/* CONTENEDOR PRINCIPAL DEL REGALO */
 .contenedor-regalo {
   background: #ffffff;
-  padding: 30px 20px;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  padding: 35px 20px;
+  border-radius: 30px;
+  box-shadow: 0 20px 40px rgba(214, 40, 57, 0.15);
   text-align: center;
-  max-width: 400px;
-  width: 90%;
-  
+  max-width: 420px;
+  width: 92%;
+  border: 3px solid #ffccd5;
   animation: aparecer 0.8s ease-out forwards;
 }
 
 @keyframes aparecer {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(25px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* TÍTULO PRINCIPAL (Más grande y con fuente con vida) */
+.contenedor-regalo h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.3rem;
+  font-style: italic;
+  color: #d90429;
+  margin-bottom: 10px;
+  text-shadow: 1px 2px 4px rgba(217, 4, 41, 0.1);
+}
+
 .dedicatoria {
-  font-size: 16px;
-  color: #777;
-  margin-bottom: 20px;
+  font-size: 1rem;
+  color: #6c757d;
+  margin-bottom: 25px;
   font-style: italic;
 }
 
 .reproductor-spotify {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.pista {
-  font-size: 14px;
-  color: #aaa;
-  margin-top: 20px;
+  margin: 20px 0;
 }
 
 
-/* ESTILOS DE LA LÍNEA DE TIEMPO / ANTIGUO */
-.seccion-timeline {
-  margin-top: 40px;
-  text-align: left;
+/* ÁLBUM DE RECUERDOS CON CARRUSEL HORIZONTAL */
+.seccion-album {
+  width: 100%;
+  margin: 35px 0;
 }
 
 .titulo-seccion {
-  text-align: center;
-  color: #e56b6f;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: #ff477e;
   margin-bottom: 20px;
-  font-weight: 500;
+  font-style: italic;
+  text-align: center;
 }
 
-
-/* ESTILOS DEL ÁLBUM TIPO HISTORIA / CARRUSEL VERTICAL */
-.seccion-album {
-  width: 100%;
-  max-width: 100%;
-  margin: 30px auto;
-  box-sizing: border-box;
-}
-
-.album-carrusel-vertical {
+/* Contenedor que desliza horizontalmente */
+.album-carrusel-horizontal {
   display: flex;
-  flex-direction: column;
-  gap: 30px;
-  max-height: 500px; /* Altura máxima para permitir desplazamiento interno */
-  overflow-y: auto;  /* Habilita el desplazamiento fluido tipo carrusel/story */
-  padding: 10px 5px;
+  overflow-x: auto;
+  gap: 20px;
+  padding: 10px 5px 20px 5px;
+  scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
 }
 
-/* Estilo estético para la barra de desplazamiento */
-.album-carrusel-vertical::-webkit-scrollbar {
-  width: 5px;
+.album-carrusel-horizontal::-webkit-scrollbar {
+  height: 8px;
 }
 
-.album-carrusel-vertical::-webkit-scrollbar-thumb {
-  background: #f0e6df;
+.album-carrusel-horizontal::-webkit-scrollbar-thumb {
+  background: #ff758c;
   border-radius: 10px;
 }
 
 .tarjeta-momento {
-  background: #faf6f2;
+  background: #fff0f3;
   padding: 20px;
-  border-radius: 18px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06);
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(255, 71, 126, 0.12);
   text-align: center;
-  border: 1px solid #f0e6df;
+  border: 2px solid #ffb3c1;
+  min-width: 82%;
+  max-width: 82%;
   flex-shrink: 0;
+  scroll-snap-align: center;
 }
 
 .foto-recuerdo-wrapper {
   width: 100%;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 15px;
   margin-bottom: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .foto-recuerdo {
@@ -156,45 +163,71 @@ button:active {
   height: 240px;
   object-fit: cover;
   object-position: center;
-  border-radius: 12px;
   display: block;
 }
 
 .texto-recuerdo {
   font-size: 0.95rem;
-  color: #5a4636;
+  color: #4a1525;
   line-height: 1.6;
-  margin: 0 0 10px 0;
-  text-align: center;
+  margin: 0 0 12px 0;
+  font-weight: 500;
 }
 
 .indicador-pagina {
-  font-size: 0.75rem;
-  color: #b59b8a;
+  font-size: 0.8rem;
+  color: #ff477e;
+  font-weight: bold;
   letter-spacing: 1px;
+}
+
+
+/* SECCIÓN DE LA CAJA DE REGALO / CORAZÓN INTERACTIVO */
+.seccion-interactiva {
+  margin-top: 40px;
+  padding: 20px;
+  background: #fff0f3;
+  border-radius: 20px;
+  border: 2px dashed #ff477e;
+  text-align: center;
+}
+
+.caja-regalo-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 4rem;
+  transition: transform 0.3s ease;
+  margin: 10px 0;
+  width: auto;
+  box-shadow: none;
+}
+
+.caja-regalo-btn:hover {
+  transform: scale(1.15) rotate(5deg);
+}
+
+.texto-interactivo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: #d90429;
   font-weight: 600;
+  margin-bottom: 10px;
 }
 
 
 /* ESTILOS DEL VIDEO FINAL */
 .seccion-video {
-  margin-top: 40px;
-  margin-bottom: 20px;
+  margin-top: 30px;
   text-align: center;
 }
 
-.texto-video {
-  font-size: 15px;
-  color: #777;
-  margin-bottom: 20px;
-  font-style: italic;
-}
-
 .video-contenedor {
-  border-radius: 12px;
+  border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
   background-color: #000;
+  border: 3px solid #ffb3c1;
 }
 
 .video-player {

@@ -1,55 +1,60 @@
 // src/components/VideoSorpresa.jsx
+import React, { useState } from 'react';
 
 function VideoSorpresa({ datos }) {
-  if (!datos.urlVideo) return null; 
+  const [abierto, setAbierto] = useState(false);
+  const textoBoton = datos.textoBotonVideo || "Toca para abrir tu sorpresa 🎁";
+  const urlVideo = datos.urlVideo || "";
 
-  // Función para transformar un enlace normal de YouTube en uno apto para incrustar (iframe)
-  const obtenerUrlYoutube = (url) => {
-    // Si el link tiene "watch?v=", lo transformamos a "embed/"
-    if (url.includes("watch?v=")) {
-      return url.replace("watch?v=", "embed/");
-    }
-    // Si es un enlace corto de youtu.be, también lo adaptamos
-    if (url.includes("youtu.be/")) {
-      const idVideo = url.split("youtu.be/")[1];
-      return `https://www.youtube.com/embed/${idVideo}`;
-    }
-    return url;
+  // Identificar si es un link de YouTube
+  const esYoutube = urlVideo.includes('youtube.com') || urlVideo.includes('youtu.be');
+
+  const convertirUrlYoutube = (url) => {
+    if (url.includes('embed/')) return url;
+    const videoId = url.split('v=')[1]?.split('&')[0] || url.split('/').pop();
+    return `https://www.youtube.com/embed/${videoId}?autoplay=1`;
   };
 
-  // Verificamos si el enlace es de YouTube
-  const esYoutube = datos.urlVideo.includes("youtube.com") || datos.urlVideo.includes("youtu.be");
+  if (!urlVideo) return null;
 
   return (
-    <div className="seccion-video">
-      <h3 className="titulo-seccion">Una última sorpresa</h3>
-      <p className="texto-video">Para terminar, dale play. Tengo algo más que decirte...</p>
-      
-      <div className="video-contenedor">
-        {esYoutube ? (
-          /* Si es YouTube, usamos un iframe adaptado para celulares */
-          <iframe 
-            width="100%" 
-            height="220" 
-            src={obtenerUrlYoutube(datos.urlVideo)} 
-            title="Video sorpresa" 
-            frameBorder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowFullScreen
-            style={{ borderRadius: '12px', display: 'block' }}
-          ></iframe>
-        ) : (
-          /* Si es un archivo directo tipo .mp4, usamos el reproductor nativo */
-          <video 
-            controls 
-            className="video-player"
-            controlsList="nodownload"
-          >
-            <source src={datos.urlVideo} type="video/mp4" />
-            Tu navegador no soporta la reproducción de videos.
-          </video>
-        )}
-      </div>
+    <div className="seccion-interactiva">
+      {!abierto ? (
+        <div onClick={() => setAbierto(true)} style={{ cursor: 'pointer' }}>
+          <p className="texto-interactivo">✨ Tienes una sorpresa esperándote ✨</p>
+          <button className="caja-regalo-btn">
+            🎁
+          </button>
+          <p style={{ fontSize: '0.85rem', color: '#ff477e', fontWeight: 600, marginTop: '5px' }}>
+            {textoBoton}
+          </p>
+        </div>
+      ) : (
+        <div className="seccion-video">
+          <p className="texto-video">¡Momento especial! 💖</p>
+          <div className="video-contenedor">
+            {esYoutube ? (
+              <iframe 
+                width="100%" 
+                height="220" 
+                src={convertirUrlYoutube(urlVideo)} 
+                title="Video Sorpresa" 
+                frameBorder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowFullScreen
+                className="video-player"
+              ></iframe>
+            ) : (
+              <video 
+                src={urlVideo} 
+                controls 
+                autoPlay
+                className="video-player"
+              ></video>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
