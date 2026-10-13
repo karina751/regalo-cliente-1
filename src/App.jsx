@@ -22,9 +22,6 @@ function App() {
         querySnapshot.forEach((doc) => {
           const data = doc.data();
           const idDoc = doc.id.toLowerCase().trim();
-          
-          console.log(`Revisando documento en Firebase: "${doc.id}"`, data); // Diagnóstico
-
           if (path && idDoc === path) {
             clienteEncontrado = data;
           }
@@ -41,7 +38,6 @@ function App() {
           }
         }
 
-        console.log("Cliente seleccionado finalmente:", clienteEncontrado); // Diagnóstico
         setDatosCliente(clienteEncontrado);
       } catch (err) {
         console.error("Error al cargar Firebase:", err);
@@ -83,26 +79,23 @@ function App() {
     );
   }
 
-  // Limpiador seguro de comillas por si Firebase las guarda con comillas adentro
-  const limpiarTexto = (texto, porDefecto) => {
-    if (!texto) return porDefecto;
-    let limpio = String(texto).trim();
-    // Si empieza y termina con comillas dobles o simples, las quita
-    if ((limpio.startsWith('"') && limpio.endsWith('"')) || (limpio.startsWith("'") && limpio.endsWith("'"))) {
-      limpio = limpio.slice(1, -1).trim();
+  // Limpiador estricto de comillas si las hay
+  const limpiar = (val) => {
+    if (!val) return "";
+    let s = String(val).trim();
+    if ((s.startsWith('"') && s.endsWith('"')) || (s.startsWith("'") && s.endsWith("'"))) {
+      s = s.slice(1, -1).trim();
     }
-    return limpio || porDefecto;
+    return s;
   };
 
-  const nombrePareja = datosCliente.nombrePareja || datosCliente.nombreCliente || 'ti';
-  const tituloPorDefecto = `Un regalo especial para ${nombrePareja} 🎁`;
-  const mensajePorDefecto = "Para descubrir tu sorpresa, ingresa la fecha especial (Día-Mes):";
-
-  const tituloBloqueo = limpiarTexto(datosCliente.tituloBloqueo || datosCliente.titulo, tituloPorDefecto);
-  const mensajeBloqueo = limpiarTexto(datosCliente.mensajeBloqueo || datosCliente.mensaje, mensajePorDefecto);
-
-  console.log("Título procesado para mostrar:", tituloBloqueo); // Diagnóstico
-  console.log("Mensaje procesado para mostrar:", mensajeBloqueo); // Diagnóstico
+  // Textos con valores por defecto universales y románticos
+  const nombreParaMostrar = limpiar(datosCliente.nombrePareja || datosCliente.nombreCliente) || "ustedes";
+  
+  const tituloBloqueo = limpiar(datosCliente.tituloBloqueo || datosCliente.titulo) || `Un regalo especial para ${nombreParaMostrar} 🎁`;
+  
+  // AQUÍ PUEDES CAMBIAR EL MENSAJE GENERAL POR DEFECTO QUE QUIERAS PARA TODOS LOS CLIENTES:
+  const mensajeBloqueo = limpiar(datosCliente.mensajeBloqueo || datosCliente.mensaje) || "Para descubrir tu sorpresa, ingresa la fecha especial (Día-Mes):";
 
   return (
     <div className="app-container">
