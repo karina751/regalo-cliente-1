@@ -16,28 +16,17 @@ function App() {
     const fetchDatos = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "clientes"));
-        const path = window.location.pathname.replace('/', '').toLowerCase().trim();
         
         let clienteEncontrado = null;
         querySnapshot.forEach((doc) => {
           const data = doc.data();
-          const idDoc = doc.id.toLowerCase().trim();
-          if (path && idDoc === path) {
+          // AgARRAR EL PRIMER CLIENTE O BUSCAR JIME-Y-GABY
+          if (doc.id === "Jime-y-Gaby" || !clienteEncontrado) {
             clienteEncontrado = data;
           }
         });
 
-        if (!clienteEncontrado && !querySnapshot.empty) {
-          querySnapshot.forEach((doc) => {
-            if (doc.id.toLowerCase().includes('jime')) {
-              clienteEncontrado = doc.data();
-            }
-          });
-          if (!clienteEncontrado) {
-            clienteEncontrado = querySnapshot.docs[0].data();
-          }
-        }
-
+        console.log("Datos obtenidos de Firebase:", clienteEncontrado);
         setDatosCliente(clienteEncontrado);
       } catch (err) {
         console.error("Error al cargar Firebase:", err);
@@ -79,29 +68,15 @@ function App() {
     );
   }
 
-  // Limpiador estricto de comillas si las hay
-  const limpiar = (val) => {
-    if (!val) return "";
-    let s = String(val).trim();
-    if ((s.startsWith('"') && s.endsWith('"')) || (s.startsWith("'") && s.endsWith("'"))) {
-      s = s.slice(1, -1).trim();
-    }
-    return s;
-  };
-
-  // Textos con valores por defecto universales y románticos
-  const nombreParaMostrar = limpiar(datosCliente.nombrePareja || datosCliente.nombreCliente) || "ustedes";
-  
-  const tituloBloqueo = limpiar(datosCliente.tituloBloqueo || datosCliente.titulo) || `Un regalo especial para ${nombreParaMostrar} 🎁`;
-  
-  // AQUÍ PUEDES CAMBIAR EL MENSAJE GENERAL POR DEFECTO QUE QUIERAS PARA TODOS LOS CLIENTES:
-  const mensajeBloqueo = limpiar(datosCliente.mensajeBloqueo || datosCliente.mensaje) || "Para descubrir tu sorpresa, ingresa la fecha especial (Día-Mes):";
+  // AQUÍ CAMBIAS EL TEXTO DE BLOQUEO CUANDO QUIERAS DIRECTAMENTE:
+  const tituloBloqueo = "Un regalo especial para Jime y Gaby 🎁";
+  const mensajeBloqueo = "Para descubrir tu sorpresa, ingresa la fecha especial (Día-Mes):";
 
   return (
     <div className="app-container">
       {bloqueado ? (
         <div className="pantalla-bloqueo">
-          <h2 style={{ fontFamily: 'Playfair Display, serif', color: '#d90429', fontSize: '1.5rem', marginBottom: '10px' }}>
+          <h2 style={{ fontFamily: 'Playfair Display, serif', color: '#d90429', fontSize: '1.4rem', marginBottom: '10px' }}>
             {tituloBloqueo}
           </h2>
           <p style={{ color: '#6c757d', fontSize: '0.95rem', margin: '15px 0' }}>
