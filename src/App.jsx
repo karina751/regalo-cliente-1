@@ -1,79 +1,109 @@
 // src/App.jsx
-import { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from './firebase/config';
-
-import Candado from './components/Candado';
+import React, { useState, useEffect } from 'react';
+import { db } from './firebaseConfig';
+import { collection, getDocs } from 'firebase/firestore';
 import Regalo from './components/Regalo';
 import './App.css';
 
-// Este componente se encarga de buscar al cliente en Firebase
-function VistaCliente() {
-  const { idCliente } = useParams(); // Esto lee "juan-y-maria" de la URL
-  const [datosFirebase, setDatosFirebase] = useState(null);
+function App() {
+  const [datosCliente, setDatosCliente] = useState(null);
+  const [claveIngresada, setClaveIngresada] = useState('');
+  const [bloqueado, setBloqueado] = useState(true);
+  const [error, setError] = useState('');
   const [cargando, setCargando] = useState(true);
-  const [desbloqueado, setDesbloqueado] = useState(false);
 
+  // Detectar si estamos en una ruta de cliente (ej: /jimeygaby o buscando por parámetro)
   useEffect(() => {
-    // Función que va a Firebase a buscar el documento
-    const buscarCliente = async () => {
+    const fetchDatos = async () => {
       try {
-        const referencia = doc(db, "clientes", idCliente);
-        const documento = await getDoc(referencia);
+        const querySnapshot = await getDocs(collection(db, "clientes"));
+        const path = window.location.pathname.replace('/', '').toLowerCase();
         
-        if (documento.exists()) {
-          setDatosFirebase(documento.data()); // Guardamos los datos que encontramos
-        } else {
-          setDatosFirebase(null); // No existe el cliente
+        let clienteEncontrado = null;
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          const idDoc = doc.id.toLowerCase();
+          // Compara si la URL coincide con el id del documento
+          if (path && idDoc === path) {
+            clienteEncontrado = data;
+          }
+        });
+
+        // Si no hay ruta específica, toma el primer cliente por defecto para pruebas
+        if (!clienteEncontrado && !querySnapshot.empty) {
+          clienteEncontrado = querySnapshot.docs[0].data();
         }
-      } catch (error) {
-        console.error("Error al buscar cliente:", error);
+
+        setDatosCliente(clienteEncontrado);
+      } catch (err) {
+        console.error("Error al cargar Firebase:", err);
+      } finally {
+        setCargando(false);
       }
-      setCargando(false);
     };
 
-    buscarCliente();
-  }, [idCliente]);
+    fetchDatos();
+  }, []);
 
-  // Mientras busca en internet, mostramos esto:
+  const verificarClave = (e) => {
+    e.preventDefault();
+    if (!datosCliente) return;
+
+    // Compara la clave ingresada con la fecha secreta de Firebase
+    if (claveIngresada.trim() === datosCliente.fechaSecreta) {
+      setBloqueado(false);
+      setError('');
+    } else {
+      setError('❌ Fecha incorrecta, prueba otra vez mi amor.');
+    }
+  };
+
   if (cargando) {
-    return <div className="pantalla-bloqueo"><h2>Buscando tu sorpresa... 🎁</h2></div>;
+    return (
+      <div className="app-container">
+        <p style={{ color: '#d90429', fontWeight: 600 }}>Cargando sorpresa romántica... 💖</p>
+      </div>
+    );
   }
 
-  // Si escribieron mal el enlace (ej: /pedro-y-ana y no existe en base de datos)
-  if (!datosFirebase) {
-    return <div className="pantalla-bloqueo"><h2>Mmm... no encontramos este regalo.</h2><p>Revisa que el enlace sea correcto.</p></div>;
+  if (!datosCliente) {
+    return (
+      <div className="app-container">
+        <div className="pantalla-bloqueo">
+          <p style={{ color: '#d90429' }}>No se encontró el regalo para este enlace. 😢</p>
+        </div>
+      </div>
+    );
   }
 
-  // Si todo está bien y ya pusieron la clave
-  if (desbloqueado) {
-    // Le pasamos los datos reales de Firebase al Regalo
-    return <Regalo datos={datosFirebase} />;
-  }
+  // Textos configurables desde Firebase (con opción por defecto si no los escribiste)
+  const tituloBloqueo = datosCliente.tituloBloqueo || `Un regalo especial para ${datosCliente.nombreCliente || 'ti'} 🎁`;
+  const mensajeBloqueo = datosCliente.mensajeBloqueo || "Para descubrir tu sorpresa, ingresa la fecha especial (Día-Mes):";
 
-  // Si encontraron al cliente pero falta la clave, mostramos el candado
-  return <Candado datos={datosFirebase} alDesbloquear={() => setDesbloqueado(true)} />;
-}
-
-// Esta es la App principal que maneja las rutas
-function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Esto atrapa cualquier texto después de la barra (ej: /juan-y-maria) */}
-        <Route path="/:idCliente" element={<VistaCliente />} />
-        
-        {/* Si entran a la página principal sin cliente, mostramos un aviso */}
-        <Route path="/" element={
-          <div className="pantalla-bloqueo">
-            <h2>¡Hola! 👋</h2>
-            <p>Debes agregar el nombre del cliente en el enlace.</p>
-            <p>Ejemplo: tupagina.com/juan-y-maria</p>
-          </div>
-        } />
-      </Routes>
-    </BrowserRouter>
+    <div className="app-container">
+      {bloqueado ? (
+        <div className="pantalla-bloqueo">
+          <h2>{tituloBloqueo}</h2>
+          <p style={{ color: '#6c757d', fontSize: '0.95rem', margin: '15px 0' }}>
+            {mensajeBloqueo}
+          </p>
+          <form onSubmit={verificarClave}>
+            <input 
+              type="text" 
+              placeholder="Ej: 14-02" 
+              value={claveIngresada}
+              onChange={(e) => setClaveIngresada(e.target.value)}
+            />
+            <br />
+            <button type="submit">Desbloquear 🔓</button>
+          </form>
+          {error && <p className="error">{error}</p>}
+        </div>
+      ) : (
+        <Regalo datos={datosCliente} />
+      )}
+    </div>
   );
 }
 
