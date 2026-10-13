@@ -23,25 +23,25 @@ function App() {
           const data = doc.data();
           const idDoc = doc.id.toLowerCase().trim();
           
-          // Si coincide la URL con el ID del documento
+          console.log(`Revisando documento en Firebase: "${doc.id}"`, data); // Diagnóstico
+
           if (path && idDoc === path) {
             clienteEncontrado = data;
           }
         });
 
-        // Si no hay ruta en la URL o no coincide, buscamos por "Jime-y-Gaby" por defecto o el primero
         if (!clienteEncontrado && !querySnapshot.empty) {
           querySnapshot.forEach((doc) => {
             if (doc.id.toLowerCase().includes('jime')) {
               clienteEncontrado = doc.data();
             }
           });
-          // Si aun así no encuentra, agarra el primero
           if (!clienteEncontrado) {
             clienteEncontrado = querySnapshot.docs[0].data();
           }
         }
 
+        console.log("Cliente seleccionado finalmente:", clienteEncontrado); // Diagnóstico
         setDatosCliente(clienteEncontrado);
       } catch (err) {
         console.error("Error al cargar Firebase:", err);
@@ -83,10 +83,15 @@ function App() {
     );
   }
 
-  // Limpiamos cualquier comilla extra por si acaso y asignamos valores
+  // Limpiador seguro de comillas por si Firebase las guarda con comillas adentro
   const limpiarTexto = (texto, porDefecto) => {
     if (!texto) return porDefecto;
-    return String(texto).replace(/^["'](.+(?=["']$))["']$/, '$1').trim();
+    let limpio = String(texto).trim();
+    // Si empieza y termina con comillas dobles o simples, las quita
+    if ((limpio.startsWith('"') && limpio.endsWith('"')) || (limpio.startsWith("'") && limpio.endsWith("'"))) {
+      limpio = limpio.slice(1, -1).trim();
+    }
+    return limpio || porDefecto;
   };
 
   const nombrePareja = datosCliente.nombrePareja || datosCliente.nombreCliente || 'ti';
@@ -95,6 +100,9 @@ function App() {
 
   const tituloBloqueo = limpiarTexto(datosCliente.tituloBloqueo || datosCliente.titulo, tituloPorDefecto);
   const mensajeBloqueo = limpiarTexto(datosCliente.mensajeBloqueo || datosCliente.mensaje, mensajePorDefecto);
+
+  console.log("Título procesado para mostrar:", tituloBloqueo); // Diagnóstico
+  console.log("Mensaje procesado para mostrar:", mensajeBloqueo); // Diagnóstico
 
   return (
     <div className="app-container">
