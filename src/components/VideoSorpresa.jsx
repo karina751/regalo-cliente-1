@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 
 function VideoSorpresa({ datos }) {
-  // Estado de los 3 globos (true = inflado, false = reventado)
   const [globos, setGlobos] = useState([true, true, true]);
   const [videoRevelado, setVideoRevelado] = useState(false);
   const [videoTerminado, setVideoTerminado] = useState(false);
@@ -24,15 +23,15 @@ function VideoSorpresa({ datos }) {
     nuevosGlobos[index] = false;
     setGlobos(nuevosGlobos);
 
-    // Si ya no quedan globos con vida (todos false), revelamos el video
+    // Si ya no quedan globos, revelamos el video
     if (nuevosGlobos.every((g) => g === false)) {
       setTimeout(() => {
         setVideoRevelado(true);
-      }, 400); // Pequeña pausa estética
+      }, 400);
     }
   };
 
-  // Función para reiniciar la experiencia si quieren volver a verla
+  // Reiniciar la experiencia
   const reiniciarExperiencia = () => {
     setGlobos([true, true, true]);
     setVideoRevelado(false);
@@ -89,18 +88,25 @@ function VideoSorpresa({ datos }) {
                 controls 
                 autoPlay
                 className="video-player"
-                onEnded={() => setVideoTerminado(true)} // Cuando el video termina, pasa a la pantalla de amor final
+                onEnded={() => setVideoTerminado(true)} // Cuando el video local termina solo, pasa a la pantalla final
               ></video>
             )}
           </div>
-          {esYoutube && (
-            <button 
-              onClick={() => setVideoTerminado(true)} 
-              style={{ marginTop: '15px', background: '#e56b6f', fontSize: '0.85rem', padding: '8px' }}
-            >
-              Terminar video ✨
-            </button>
-          )}
+          
+          {/* Botón claro para pasar a la pantalla final cuando el usuario quiera o si es YouTube */}
+          <button 
+            onClick={() => setVideoTerminado(true)} 
+            style={{ 
+              marginTop: '15px', 
+              background: 'linear-gradient(135deg, #ff477e, #ff758c)', 
+              fontSize: '0.9rem', 
+              padding: '10px',
+              width: '100%',
+              borderRadius: '12px'
+            }}
+          >
+            Ver mensaje final 💖✨
+          </button>
         </div>
       )}
 
