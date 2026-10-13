@@ -16,19 +16,30 @@ function App() {
     const fetchDatos = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "clientes"));
-        const path = window.location.pathname.replace('/', '').toLowerCase();
+        const path = window.location.pathname.replace('/', '').toLowerCase().trim();
         
         let clienteEncontrado = null;
         querySnapshot.forEach((doc) => {
           const data = doc.data();
-          const idDoc = doc.id.toLowerCase();
+          const idDoc = doc.id.toLowerCase().trim();
+          
+          // Si coincide la URL con el ID del documento
           if (path && idDoc === path) {
             clienteEncontrado = data;
           }
         });
 
+        // Si no hay ruta en la URL o no coincide, buscamos por "Jime-y-Gaby" por defecto o el primero
         if (!clienteEncontrado && !querySnapshot.empty) {
-          clienteEncontrado = querySnapshot.docs[0].data();
+          querySnapshot.forEach((doc) => {
+            if (doc.id.toLowerCase().includes('jime')) {
+              clienteEncontrado = doc.data();
+            }
+          });
+          // Si aun así no encuentra, agarra el primero
+          if (!clienteEncontrado) {
+            clienteEncontrado = querySnapshot.docs[0].data();
+          }
         }
 
         setDatosCliente(clienteEncontrado);
@@ -72,9 +83,18 @@ function App() {
     );
   }
 
-  // Textos flexibles: lee de Firebase o usa los predeterminados
-  const tituloBloqueo = datosCliente.tituloBloqueo || datosCliente.titulo || `Un regalo especial para ${datosCliente.nombreCliente || 'ti'} 🎁`;
-  const mensajeBloqueo = datosCliente.mensajeBloqueo || datosCliente.mensaje || "Para descubrir tu sorpresa, ingresa la fecha especial (Día-Mes):";
+  // Limpiamos cualquier comilla extra por si acaso y asignamos valores
+  const limpiarTexto = (texto, porDefecto) => {
+    if (!texto) return porDefecto;
+    return String(texto).replace(/^["'](.+(?=["']$))["']$/, '$1').trim();
+  };
+
+  const nombrePareja = datosCliente.nombrePareja || datosCliente.nombreCliente || 'ti';
+  const tituloPorDefecto = `Un regalo especial para ${nombrePareja} 🎁`;
+  const mensajePorDefecto = "Para descubrir tu sorpresa, ingresa la fecha especial (Día-Mes):";
+
+  const tituloBloqueo = limpiarTexto(datosCliente.tituloBloqueo || datosCliente.titulo, tituloPorDefecto);
+  const mensajeBloqueo = limpiarTexto(datosCliente.mensajeBloqueo || datosCliente.mensaje, mensajePorDefecto);
 
   return (
     <div className="app-container">
