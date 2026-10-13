@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Montserrat', sans-serif;
-  background: linear-gradient(135deg, #ffccd5, #ffe5ec); /* Fondo vivo y romántico */
+  background: linear-gradient(135deg, #ffccd5, #ffe5ec);
   color: #4a1525;
   display: flex;
   justify-content: center;
@@ -81,7 +81,17 @@ button:active {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* TÍTULO PRINCIPAL (Más grande y con fuente con vida) */
+/* ANIMACIÓN DE LATIDO PARA LOS TÍTULOS */
+@keyframes latido {
+  0% { transform: scale(1); }
+  15% { transform: scale(1.05); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.05); }
+  60% { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+
+/* TÍTULO PRINCIPAL (Con animación de latido constante) */
 .contenedor-regalo h1 {
   font-family: 'Playfair Display', serif;
   font-size: 2.3rem;
@@ -89,6 +99,7 @@ button:active {
   color: #d90429;
   margin-bottom: 10px;
   text-shadow: 1px 2px 4px rgba(217, 4, 41, 0.1);
+  animation: latido 2.5s infinite ease-in-out;
 }
 
 .dedicatoria {
@@ -103,7 +114,7 @@ button:active {
 }
 
 
-/* ÁLBUM DE RECUERDOS CON CARRUSEL HORIZONTAL */
+/* ÁLBUM DE RECUERDOS CON CARRUSEL HORIZONTAL AUTOMÁTICO */
 .seccion-album {
   width: 100%;
   margin: 35px 0;
@@ -116,9 +127,9 @@ button:active {
   margin-bottom: 20px;
   font-style: italic;
   text-align: center;
+  animation: latido 3s infinite ease-in-out;
 }
 
-/* Contenedor que desliza horizontalmente */
 .album-carrusel-horizontal {
   display: flex;
   overflow-x: auto;
@@ -126,15 +137,12 @@ button:active {
   padding: 10px 5px 20px 5px;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
+  /* Ocultar barra de desplazamiento para que se vea limpio */
+  scrollbar-width: none; /* Firefox */
 }
 
 .album-carrusel-horizontal::-webkit-scrollbar {
-  height: 8px;
-}
-
-.album-carrusel-horizontal::-webkit-scrollbar-thumb {
-  background: #ff758c;
-  border-radius: 10px;
+  display: none; /* Chrome, Safari, Opera */
 }
 
 .tarjeta-momento {
@@ -201,6 +209,7 @@ button:active {
   margin: 10px 0;
   width: auto;
   box-shadow: none;
+  animation: latido 1.5s infinite ease-in-out;
 }
 
 .caja-regalo-btn:hover {
