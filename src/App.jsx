@@ -50,7 +50,7 @@ function App() {
     // Permitir solo números y el símbolo guion (-)
     valor = valor.replace(/[^0-9-]/g, '');
 
-    // Limitar estrictamente a 4 caracteres (ej: DD-MM)
+    // Limitar estrictamente a 5 caracteres (ej: DD-MM)
     if (valor.length <= 5) {
       setClaveIngresada(valor);
     }
@@ -122,8 +122,8 @@ function App() {
           <form onSubmit={verificarClave}>
             <input 
               type="text" 
-              placeholder="Ej: 27-10" 
-              maxLength="4"
+              placeholder="Ej: 03-04" 
+              maxLength="5"
               value={claveIngresada}
               onChange={manejarCambioInput}
             />
