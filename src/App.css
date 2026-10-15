@@ -349,3 +349,32 @@ button:active {
   display: block;
   border-radius: 12px;
 }
+
+/* ESTILOS PARA LA VENTANA FLOTANTE (MODAL) DEL VIDEO */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(74, 21, 37, 0.6);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.modal-contenido {
+  background: #ffffff;
+  padding: 25px 20px;
+  border-radius: 25px;
+  max-width: 380px;
+  width: 100%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border: 3px solid #ff758c;
+  box-sizing: border-box;
+  animation: aparecer 0.4s ease-out forwards;
+}

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 function VideoSorpresa({ datos }) {
   const [globos, setGlobos] = useState([true, true, true]);
-  const [videoRevelado, setVideoRevelado] = useState(false);
+  const [modalAbierto, setModalAbierto] = useState(false);
   const [videoTerminado, setVideoTerminado] = useState(false);
 
   const urlVideo = datos.urlVideo || "";
@@ -23,10 +23,11 @@ function VideoSorpresa({ datos }) {
     nuevosGlobos[index] = false;
     setGlobos(nuevosGlobos);
 
-    // Si ya no quedan globos, revelamos el video
+    // Si ya no quedan globos, abrimos la ventana flotante (modal) con el video
     if (nuevosGlobos.every((g) => g === false)) {
       setTimeout(() => {
-        setVideoRevelado(true);
+        setModalAbierto(true);
+        setVideoTerminado(false);
       }, 400);
     }
   };
@@ -34,7 +35,7 @@ function VideoSorpresa({ datos }) {
   // Reiniciar la experiencia
   const reiniciarExperiencia = () => {
     setGlobos([true, true, true]);
-    setVideoRevelado(false);
+    setModalAbierto(false);
     setVideoTerminado(false);
   };
 
@@ -42,82 +43,91 @@ function VideoSorpresa({ datos }) {
 
   return (
     <div className="seccion-interactiva-globos">
-      {!videoRevelado && !videoTerminado && (
-        <div>
-          <p className="instruccion-globos">🎈 ¡Revienta los globos de amor para abrir tu sorpresa! 🎈</p>
-          <div className="contenedor-globos">
-            {globos.map((activo, index) => (
-              activo ? (
-                <button 
-                  key={index} 
-                  className="globo-corazon"
-                  onClick={() => reventarGlobo(index)}
-                  title="¡Tócame para reventar!"
-                >
-                  💖
-                </button>
-              ) : (
-                <span key={index} style={{ fontSize: '1.5rem', opacity: 0.3, width: '60px', textAlign: 'center' }}>💥</span>
-              )
-            ))}
-          </div>
-          <p style={{ fontSize: '0.8rem', color: '#ff477e', marginTop: '10px', fontStyle: 'italic' }}>
-            {globos.filter(g => g).length} globos restantes
-          </p>
-        </div>
-      )}
-
-      {videoRevelado && !videoTerminado && (
-        <div className="tarjeta-video-revelado">
-          <p className="texto-video">¡Sorpresa descubierta! Disfruta este momento 💖</p>
-          <div className="video-contenedor">
-            {esYoutube ? (
-              <iframe 
-                width="100%" 
-                height="220" 
-                src={convertirUrlYoutube(urlVideo)} 
-                title="Video Sorpresa" 
-                frameBorder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowFullScreen
-                className="video-player"
-              ></iframe>
+      {/* Sección inicial de los globos */}
+      <div>
+        <p className="instruccion-globos">🎈 ¡Revienta los globos de amor para abrir tu sorpresa! 🎈</p>
+        <div className="contenedor-globos">
+          {globos.map((activo, index) => (
+            activo ? (
+              <button 
+                key={index} 
+                className="globo-corazon"
+                onClick={() => reventarGlobo(index)}
+                title="¡Tócame para reventar!"
+              >
+                💖
+              </button>
             ) : (
-              <video 
-                src={urlVideo} 
-                controls 
-                autoPlay
-                className="video-player"
-                onEnded={() => setVideoTerminado(true)} // Cuando el video local termina solo, pasa a la pantalla final
-              ></video>
-            )}
-          </div>
-          
-          {/* Botón claro para pasar a la pantalla final cuando el usuario quiera o si es YouTube */}
-          <button 
-            onClick={() => setVideoTerminado(true)} 
-            style={{ 
-              marginTop: '15px', 
-              background: 'linear-gradient(135deg, #ff477e, #ff758c)', 
-              fontSize: '0.9rem', 
-              padding: '10px',
-              width: '100%',
-              borderRadius: '12px'
-            }}
-          >
-            Ver mensaje final 💖✨
-          </button>
+              <span key={index} style={{ fontSize: '1.5rem', opacity: 0.3, width: '55px', textAlign: 'center' }}>💥</span>
+            )
+          ))}
         </div>
-      )}
+        <p style={{ fontSize: '0.8rem', color: '#ff477e', marginTop: '10px', fontStyle: 'italic' }}>
+          {globos.filter(g => g).length} globos restantes
+        </p>
+      </div>
 
-      {videoTerminado && (
-        <div className="pantalla-final-amor">
-          <div className="pareja-animacion">👩‍❤️‍👨</div>
-          <h3 className="titulo-final">¡Por muchos momentos más juntos!</h3>
-          <p className="texto-final">El amor se construye día a día con pequeños detalles. ❤️</p>
-          <button className="btn-reiniciar-experiencia" onClick={reiniciarExperiencia}>
-            Volver a abrir sorpresa 🎁
-          </button>
+      {/* VENTANA FLOTANTE / MODAL QUE SE ABRE AL REVENTAR LOS GLOBOS */}
+      {modalAbierto && (
+        <div className="modal-overlay">
+          <div className="modal-contenido">
+            
+            {!videoTerminado ? (
+              <div className="tarjeta-video-revelado">
+                <p className="texto-video" style={{ fontWeight: 'bold', color: '#d90429', marginBottom: '10px' }}>
+                  ¡Sorpresa descubierta! Disfruta este momento 💖
+                </p>
+                <div className="video-contenedor">
+                  {esYoutube ? (
+                    <iframe 
+                      width="100%" 
+                      height="240" 
+                      src={convertirUrlYoutube(urlVideo)} 
+                      title="Video Sorpresa" 
+                      frameBorder="0" 
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                      allowFullScreen
+                      className="video-player"
+                    ></iframe>
+                  ) : (
+                    <video 
+                      src={urlVideo} 
+                      controls 
+                      autoPlay
+                      className="video-player"
+                      onEnded={() => setVideoTerminado(true)}
+                    ></video>
+                  )}
+                </div>
+                
+                {/* Botón para pasar al mensaje final cuando termine o cuando el usuario quiera */}
+                <button 
+                  onClick={() => setVideoTerminado(true)} 
+                  style={{ 
+                    marginTop: '15px', 
+                    background: 'linear-gradient(135deg, #ff477e, #ff758c)', 
+                    fontSize: '0.9rem', 
+                    padding: '10px',
+                    width: '100%',
+                    borderRadius: '12px'
+                  }}
+                >
+                  Ver mensaje final 💖✨
+                </button>
+              </div>
+            ) : (
+              /* PANTALLA FINAL CON LA PAREJA ANIMADA */
+              <div className="pantalla-final-amor">
+                <div className="pareja-animacion">👩‍❤️‍👨</div>
+                <h3 className="titulo-final">¡Por muchos momentos más juntos!</h3>
+                <p className="texto-final">El amor se construye día a día con pequeños detalles. ❤️</p>
+                <button className="btn-reiniciar-experiencia" onClick={reiniciarExperiencia}>
+                  Volver a abrir sorpresa 🎁
+                </button>
+              </div>
+            )}
+
+          </div>
         </div>
       )}
     </div>
