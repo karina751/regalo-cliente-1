@@ -43,7 +43,7 @@ function App() {
     fetchDatos();
   }, []);
 
-  // Control para permitir solo números, un guion y máximo 4 caracteres
+  // Control para permitir solo números, un guion y máximo 5 caracteres
   const manejarCambioInput = (e) => {
     let valor = e.target.value;
     
@@ -133,7 +133,13 @@ function App() {
           {error && <p className="error">{error}</p>}
         </div>
       ) : (
-        <Regalo datos={datosCliente} />
+        <Regalo 
+          datos={datosCliente} 
+          onCerrarSesion={() => { 
+            setBloqueado(true); 
+            setClaveIngresada(''); 
+          }} 
+        />
       )}
     </div>
   );

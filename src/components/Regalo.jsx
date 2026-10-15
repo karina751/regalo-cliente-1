@@ -3,38 +3,38 @@ import React from 'react';
 import LineaDeTiempo from './LineaDeTiempo';
 import VideoSorpresa from './VideoSorpresa';
 
-function Regalo({ datos }) {
-  // Si en Firebase pusiste un título, lo usa; si no, por defecto muestra "¡Feliz Aniversario! ❤️"
-  const tituloPrincipal = datos.tituloRegalo || "¡Feliz Aniversario! ❤️";
+function Regalo({ datos, onCerrarSesion }) {
+  const tituloRegalo = datos.tituloRegalo || "¡Feliz Aniversario! ❤️";
   const dedicatoria = datos.dedicatoria || "Gracias por cada momento juntos";
+  const urlCancionSpotify = datos.urlCancionSpotify || "";
 
   return (
     <div className="contenedor-regalo">
-      <h1>{tituloPrincipal}</h1>
+      <h1>{tituloRegalo}</h1>
       <p className="dedicatoria">{dedicatoria}</p>
 
-      {/* Reproductor de Spotify */}
-      {datos.urlCancionSpotify && (
+      {/* Reproductor de Spotify si existe */}
+      {urlCancionSpotify && (
         <div className="reproductor-spotify">
-          <iframe 
-            style={{ borderRadius: '12px' }} 
-            src={datos.urlCancionSpotify} 
-            width="100%" 
-            height="152" 
-            frameBorder="0" 
-            allowFullScreen="" 
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+          <iframe
+            style={{ borderRadius: '12px' }}
+            src={urlCancionSpotify}
+            width="100%"
+            height="152"
+            frameBorder="0"
+            allowfullscreen=""
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             loading="lazy"
-            title="Reproductor Spotify"
+            title="Spotify Canción"
           ></iframe>
         </div>
       )}
-      
-      {/* Álbum de recuerdos dinámico */}
+
+      {/* Línea de tiempo / Álbum de fotos */}
       <LineaDeTiempo datos={datos} />
-      
-      {/* Video sorpresa final */}
-      <VideoSorpresa datos={datos} />
+
+      {/* Sección interactiva de globos y video con el botón de cierre actualizado */}
+      <VideoSorpresa datos={datos} onCerrarSesion={onCerrarSesion} />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 // src/components/VideoSorpresa.jsx
 import React, { useState } from 'react';
 
-function VideoSorpresa({ datos }) {
+function VideoSorpresa({ datos, onCerrarSesion }) {
   const [globos, setGlobos] = useState([true, true, true]);
   const [modalAbierto, setModalAbierto] = useState(false);
   const [videoTerminado, setVideoTerminado] = useState(false);
@@ -32,11 +32,14 @@ function VideoSorpresa({ datos }) {
     }
   };
 
-  // Reiniciar la experiencia
-  const reiniciarExperiencia = () => {
+  // Volver a la pantalla de bloqueo inicial
+  const manejarCierreFinal = () => {
     setGlobos([true, true, true]);
     setModalAbierto(false);
     setVideoTerminado(false);
+    if (onCerrarSesion) {
+      onCerrarSesion(); // Llama a la función del App para bloquearse de nuevo
+    }
   };
 
   if (!urlVideo) return null;
@@ -121,8 +124,8 @@ function VideoSorpresa({ datos }) {
                 <div className="pareja-animacion">👩‍❤️‍👨</div>
                 <h3 className="titulo-final">¡Por muchos momentos más juntos!</h3>
                 <p className="texto-final">El amor se construye día a día con pequeños detalles. ❤️</p>
-                <button className="btn-reiniciar-experiencia" onClick={reiniciarExperiencia}>
-                  Volver a abrir sorpresa 🎁
+                <button className="btn-reiniciar-experiencia" onClick={manejarCierreFinal}>
+                  🔒 Volver al inicio (Bloquear)
                 </button>
               </div>
             )}
