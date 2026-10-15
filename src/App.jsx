@@ -51,7 +51,7 @@ function App() {
     valor = valor.replace(/[^0-9-]/g, '');
 
     // Limitar estrictamente a 4 caracteres (ej: DD-MM)
-    if (valor.length <= 4) {
+    if (valor.length <= 5) {
       setClaveIngresada(valor);
     }
   };
