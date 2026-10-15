@@ -1,6 +1,6 @@
 // src/App.jsx
 import React, { useState, useEffect } from 'react';
-import { db } from './firebaseConfig';
+import { db } from './firebase/firebaseConfig'; // Ajustado a tu carpeta firebase
 import { collection, getDocs } from 'firebase/firestore';
 import Regalo from './components/Regalo';
 import './App.css';

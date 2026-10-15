@@ -22,7 +22,6 @@ html, body {
   box-sizing: border-box;
 }
 
-/* Contenedor general responsive para asegurar centrado absoluto */
 .app-container {
   width: 100%;
   min-height: 100vh;
@@ -33,7 +32,6 @@ html, body {
   box-sizing: border-box;
 }
 
-/* Pantalla de bloqueo centrada, adaptable y romántica */
 .pantalla-bloqueo {
   background: #ffffff;
   padding: 30px 20px;
@@ -92,7 +90,6 @@ button:active {
   font-weight: 600;
 }
 
-/* CONTENEDOR PRINCIPAL DEL REGALO (RESPONSIVE) */
 .contenedor-regalo {
   background: #ffffff;
   padding: 30px 20px;
@@ -147,7 +144,6 @@ button:active {
   box-sizing: border-box;
 }
 
-/* ÁLBUM DE RECUERDOS (CARRUSEL HORIZONTAL RESPONSIVE) */
 .seccion-album {
   width: 100%;
   margin: 30px 0;
@@ -225,7 +221,6 @@ button:active {
   letter-spacing: 1px;
 }
 
-/* SECCIÓN DE LA CAJA DE REGALO / GLOBOS INTERACTIVOS */
 .seccion-interactiva-globos {
   margin-top: 30px;
   padding: 20px 10px;
