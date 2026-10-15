@@ -43,11 +43,33 @@ function App() {
     fetchDatos();
   }, []);
 
+  // Control para permitir solo números, un guion y máximo 4 caracteres
+  const manejarCambioInput = (e) => {
+    let valor = e.target.value;
+    
+    // Permitir solo números y el símbolo guion (-)
+    valor = valor.replace(/[^0-9-]/g, '');
+
+    // Limitar estrictamente a 4 caracteres (ej: DD-MM)
+    if (valor.length <= 4) {
+      setClaveIngresada(valor);
+    }
+  };
+
   const verificarClave = (e) => {
     e.preventDefault();
     if (!datosCliente) return;
 
-    if (String(claveIngresada).trim() === String(datosCliente.fechaSecreta || '').trim()) {
+    const fechaReal = String(
+      datosCliente.fechaSecreta || 
+      datosCliente.fecha || 
+      datosCliente.clave || 
+      datosCliente.password || ''
+    ).trim();
+
+    const claveEscrita = String(claveIngresada).trim();
+
+    if (claveEscrita === fechaReal) {
       setBloqueado(false);
       setError('');
     } else {
@@ -100,9 +122,10 @@ function App() {
           <form onSubmit={verificarClave}>
             <input 
               type="text" 
-              placeholder="Ej: 14-02" 
+              placeholder="Ej: 27-10" 
+              maxLength="4"
               value={claveIngresada}
-              onChange={(e) => setClaveIngresada(e.target.value)}
+              onChange={manejarCambioInput}
             />
             <br />
             <button type="submit">Desbloquear 🔓</button>
