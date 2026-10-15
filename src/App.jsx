@@ -23,18 +23,15 @@ function App() {
           const data = doc.data();
           const idDoc = doc.id.toLowerCase().trim();
           
-          // Si la URL coincide con el nombre del documento en Firebase (ej: /Jime-y-Gaby)
           if (path && idDoc === path) {
             clienteEncontrado = data;
           }
         });
 
-        // Si no hay ruta en la URL, busca por defecto o agarra el primer cliente
         if (!clienteEncontrado && !querySnapshot.empty) {
           clienteEncontrado = querySnapshot.docs[0].data();
         }
 
-        console.log("Cliente cargado desde Firebase:", clienteEncontrado);
         setDatosCliente(clienteEncontrado);
       } catch (err) {
         console.error("Error al cargar Firebase:", err);
@@ -76,11 +73,9 @@ function App() {
     );
   }
 
-  // Función infalible para limpiar comillas dobles o simples extras que se guarden en Firebase
   const limpiarTextoFirebase = (texto, porDefecto) => {
     if (!texto) return porDefecto;
     let limpio = String(texto).trim();
-    // Quita comillas repetidas al inicio y al final si las hubiera
     limpio = limpio.replace(/^["']+|["']+$/g, '').trim();
     return limpio || porDefecto;
   };
@@ -89,7 +84,6 @@ function App() {
   const tituloPorDefecto = `Un regalo especial para ${nombrePareja} 🎁`;
   const mensajePorDefecto = "Para descubrir tu sorpresa, ingresa la fecha especial (Día-Mes):";
 
-  // Lee dinámicamente de Firebase y limpia los textos
   const tituloBloqueo = limpiarTextoFirebase(datosCliente.tituloBloqueo || datosCliente.titulo, tituloPorDefecto);
   const mensajeBloqueo = limpiarTextoFirebase(datosCliente.mensajeBloqueo || datosCliente.mensaje, mensajePorDefecto);
 
