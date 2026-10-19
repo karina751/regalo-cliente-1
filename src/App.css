@@ -361,33 +361,39 @@ button:active {
   border-radius: 12px;
 }
 
-/* ESTILOS PARA LA VENTANA FLOTANTE (MODAL) DEL VIDEO */
+/* ESTILOS PARA LA VENTANA FLOTANTE (MODAL) DEL VIDEO CENTRADA ABSOLUTA */
 .modal-overlay {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(56, 44, 35, 0.65); /* Sombra marrón translúcida elegante */
+  background: rgba(56, 44, 35, 0.7); /* Sombra marrón translúcida elegante */
   backdrop-filter: blur(5px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
   z-index: 99999;
-  padding: 20px;
   box-sizing: border-box;
 }
 
 .modal-contenido {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background: #ffffff;
   padding: 25px 20px;
   border-radius: 25px;
   max-width: 380px;
-  width: 100%;
+  width: 90%;
   max-height: 85vh;
   overflow-y: auto;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35);
   border: 3px solid #78716c;
   box-sizing: border-box;
-  animation: aparecer 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  margin: auto; /* Fuerza el centrado absoluto en cualquier pantalla */
+  animation: aparecerModal 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  z-index: 100000;
+}
+
+@keyframes aparecerModal {
+  from { opacity: 0; transform: translate(-50%, -45%) scale(0.95); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
