@@ -1,5 +1,5 @@
 // src/components/VideoSorpresa.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function VideoSorpresa({ datos, onCerrarSesion }) {
   const [globos, setGlobos] = useState([true, true, true]);
@@ -7,8 +7,6 @@ function VideoSorpresa({ datos, onCerrarSesion }) {
   const [videoTerminado, setVideoTerminado] = useState(false);
 
   const urlVideo = datos.urlVideo || "";
-
-  // Identificar si es un link de YouTube
   const esYoutube = urlVideo.includes('youtube.com') || urlVideo.includes('youtu.be');
 
   const convertirUrlYoutube = (url) => {
@@ -17,28 +15,43 @@ function VideoSorpresa({ datos, onCerrarSesion }) {
     return `https://www.youtube.com/embed/${videoId}?autoplay=1`;
   };
 
-  // Manejar el estallido de un globo
+  // Bloquear el scroll de la página física y fijar la vista exactamente donde está el usuario al abrir el modal
+  useEffect(() => {
+    if (modalAbierto) {
+      const scrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+    } else {
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+      }
+    }
+  }, [modalAbierto]);
+
   const reventarGlobo = (index) => {
     const nuevosGlobos = [...globos];
     nuevosGlobos[index] = false;
     setGlobos(nuevosGlobos);
 
-    // Si ya no quedan globos, abrimos la ventana flotante (modal) con el video
     if (nuevosGlobos.every((g) => g === false)) {
       setTimeout(() => {
         setModalAbierto(true);
         setVideoTerminado(false);
-      }, 400);
+      }, 300);
     }
   };
 
-  // Volver a la pantalla de bloqueo inicial
   const manejarCierreFinal = () => {
     setGlobos([true, true, true]);
     setModalAbierto(false);
     setVideoTerminado(false);
     if (onCerrarSesion) {
-      onCerrarSesion(); // Llama a la función del App para bloquearse de nuevo
+      onCerrarSesion();
     }
   };
 
@@ -46,7 +59,6 @@ function VideoSorpresa({ datos, onCerrarSesion }) {
 
   return (
     <div className="seccion-interactiva-globos">
-      {/* Sección inicial de los globos */}
       <div>
         <p className="instruccion-globos">🎈 ¡Revienta los globos de amor para abrir tu sorpresa! 🎈</p>
         <div className="contenedor-globos">
@@ -65,19 +77,18 @@ function VideoSorpresa({ datos, onCerrarSesion }) {
             )
           ))}
         </div>
-        <p style={{ fontSize: '0.8rem', color: '#ff477e', marginTop: '10px', fontStyle: 'italic' }}>
+        <p style={{ fontSize: '0.8rem', color: '#0284c7', marginTop: '10px', fontStyle: 'italic' }}>
           {globos.filter(g => g).length} globos restantes
         </p>
       </div>
 
-      {/* VENTANA FLOTANTE / MODAL QUE SE ABRE AL REVENTAR LOS GLOBOS */}
       {modalAbierto && (
         <div className="modal-overlay">
           <div className="modal-contenido">
             
             {!videoTerminado ? (
               <div className="tarjeta-video-revelado">
-                <p className="texto-video" style={{ fontWeight: 'bold', color: '#d90429', marginBottom: '10px' }}>
+                <p className="texto-video" style={{ fontWeight: 'bold', color: '#451a03', marginBottom: '10px' }}>
                   ¡Sorpresa descubierta! Disfruta este momento 💖
                 </p>
                 <div className="video-contenedor">
@@ -103,29 +114,31 @@ function VideoSorpresa({ datos, onCerrarSesion }) {
                   )}
                 </div>
                 
-                {/* Botón para pasar al mensaje final cuando termine o cuando el usuario quiera */}
                 <button 
                   onClick={() => setVideoTerminado(true)} 
                   style={{ 
                     marginTop: '15px', 
-                    background: 'linear-gradient(135deg, #ff477e, #ff758c)', 
+                    background: 'linear-gradient(135deg, #0284c7, #0369a1)', 
                     fontSize: '0.9rem', 
-                    padding: '10px',
+                    padding: '12px',
                     width: '100%',
-                    borderRadius: '12px'
+                    borderRadius: '12px',
+                    border: 'none',
+                    color: 'white',
+                    fontWeight: 'bold',
+                    cursor: 'pointer'
                   }}
                 >
                   Ver mensaje final 💖✨
                 </button>
               </div>
             ) : (
-              /* PANTALLA FINAL CON LA PAREJA ANIMADA */
               <div className="pantalla-final-amor">
                 <div className="pareja-animacion">👩‍❤️‍👨</div>
                 <h3 className="titulo-final">¡Por muchos momentos más juntos!</h3>
-                <p className="texto-final">El amor se construye día a día con pequeños detalles. Yo la mas fria ❤️</p>
+                <p className="texto-final">El amor se construye día a día con pequeños detalles. ❤️</p>
                 <button className="btn-reiniciar-experiencia" onClick={manejarCierreFinal}>
-                  🔒 Volver al inicio
+                  🔒 Volver al inicio (Bloquear)
                 </button>
               </div>
             )}
