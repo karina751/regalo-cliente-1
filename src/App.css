@@ -368,14 +368,17 @@ button:active {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(56, 44, 35, 0.5); /* Sombra marrón cálida */
-  backdrop-filter: blur(5px);
+  background: rgba(56, 44, 35, 0.6); /* Sombra marrón cálida translúcida */
+  backdrop-filter: blur(6px);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 9999; /* Asegura que esté por encima de todo */
   padding: 15px;
   box-sizing: border-box;
+  /* Evita que el fondo se mueva o haga scroll por detrás */
+  overflow: hidden;
+  touch-action: none;
 }
 
 .modal-contenido {
@@ -384,8 +387,10 @@ button:active {
   border-radius: 25px;
   max-width: 380px;
   width: 100%;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  max-height: 90vh; /* Para que nunca desborde la pantalla vertical del celular */
+  overflow-y: auto;  /* Permite scroll interno solo si el contenido es muy largo */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
   border: 3px solid #78716c;
   box-sizing: border-box;
-  animation: aparecer 0.4s ease-out forwards;
+  animation: aparecer 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

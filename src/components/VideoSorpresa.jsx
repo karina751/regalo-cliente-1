@@ -125,7 +125,7 @@ function VideoSorpresa({ datos, onCerrarSesion }) {
                 <h3 className="titulo-final">¡Por muchos momentos más juntos!</h3>
                 <p className="texto-final">El amor se construye día a día con pequeños detalles. Yo la mas fria ❤️</p>
                 <button className="btn-reiniciar-experiencia" onClick={manejarCierreFinal}>
-                  🔒 Volver al inicio (Bloquear)
+                  🔒 Volver al inicio
                 </button>
               </div>
             )}
