@@ -146,7 +146,7 @@ button:active {
   box-sizing: border-box;
 }
 
-/* ÁLBUM DE RECUERDOS */
+/* ÁLBUM DE RECUERDOS VERTICAL */
 .seccion-album {
   width: 100%;
   margin: 30px 0;
@@ -163,20 +163,28 @@ button:active {
   animation: latido 3s infinite ease-in-out;
 }
 
-.album-carrusel-horizontal {
+.album-carrusel-vertical {
   display: flex;
-  overflow-x: auto;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: 380px; /* Altura máxima para scrollear hacia arriba prolijamente */
   gap: 15px;
-  padding: 10px 5px 20px 5px;
-  scroll-snap-type: x mandatory;
+  padding: 10px 5px;
+  scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
-  scrollbar-width: none;
+  scrollbar-width: thin;
+  scrollbar-color: #0284c7 #f0f9ff;
   width: 100%;
   box-sizing: border-box;
 }
 
-.album-carrusel-horizontal::-webkit-scrollbar {
-  display: none;
+.album-carrusel-vertical::-webkit-scrollbar {
+  width: 6px;
+}
+
+.album-carrusel-vertical::-webkit-scrollbar-thumb {
+  background: #0284c7;
+  border-radius: 10px;
 }
 
 .tarjeta-momento {
@@ -186,8 +194,7 @@ button:active {
   box-shadow: 0 8px 20px rgba(2, 132, 199, 0.08);
   text-align: center;
   border: 2px solid #bae6fd;
-  min-width: 85%;
-  max-width: 85%;
+  width: 100%;
   flex-shrink: 0;
   scroll-snap-align: center;
   box-sizing: border-box;

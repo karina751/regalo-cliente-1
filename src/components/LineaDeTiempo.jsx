@@ -8,7 +8,7 @@ function LineaDeTiempo({ datos }) {
   
   const carruselRef = useRef(null);
 
-  // Desplazamiento automático más pausado (ej: cada 7 segundos para que dé tiempo de leer)
+  // Desplazamiento automático hacia arriba cada 1 minuto (60,000 ms)
   useEffect(() => {
     const contenedor = carruselRef.current;
     if (!contenedor) return;
@@ -16,28 +16,28 @@ function LineaDeTiempo({ datos }) {
     const intervalo = setInterval(() => {
       const tarjeta = contenedor.querySelector('.tarjeta-momento');
       if (!tarjeta) return;
-      const anchoTarjeta = tarjeta.offsetWidth + 15; // Ancho + gap
+      const altoTarjeta = tarjeta.offsetHeight + 15; // Alto + gap
 
-      if (contenedor.scrollLeft + contenedor.clientWidth >= contenedor.scrollWidth - 10) {
-        contenedor.scrollTo({ left: 0, behavior: 'smooth' });
+      if (contenedor.scrollTop + contenedor.clientHeight >= contenedor.scrollHeight - 10) {
+        contenedor.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        contenedor.scrollBy({ left: anchoTarjeta, behavior: 'smooth' });
+        contenedor.scrollBy({ top: altoTarjeta, behavior: 'smooth' });
       }
-    }, 60000); // 1minutoundos por imagen
+    }, 60000); // 1 minuto exacto
 
     return () => clearInterval(intervalo);
   }, [textos.length]);
 
-  // Funciones para pasar de foto manualmente con botones
+  // Funciones para pasar de foto manualmente hacia arriba o hacia abajo con botones
   const desplazar = (direccion) => {
     const contenedor = carruselRef.current;
     if (!contenedor) return;
     const tarjeta = contenedor.querySelector('.tarjeta-momento');
     if (!tarjeta) return;
-    const anchoTarjeta = tarjeta.offsetWidth + 15;
+    const altoTarjeta = tarjeta.offsetHeight + 15;
 
     contenedor.scrollBy({ 
-      left: direccion === 'izquierda' ? -anchoTarjeta : anchoTarjeta, 
+      top: direccion === 'arriba' ? -altoTarjeta : altoTarjeta, 
       behavior: 'smooth' 
     });
   };
@@ -48,8 +48,8 @@ function LineaDeTiempo({ datos }) {
     <div className="seccion-album">
       <h3 className="titulo-seccion">{tituloSeccion}</h3>
       
-      {/* Contenedor del carrusel con scroll manual habilitado y fluido */}
-      <div className="album-carrusel-horizontal" ref={carruselRef}>
+      {/* Contenedor del carrusel en formato vertical */}
+      <div className="album-carrusel-vertical" ref={carruselRef}>
         {textos.map((parrafo, index) => (
           <div key={index} className="tarjeta-momento">
             {fotos[index] && typeof fotos[index] === 'string' && fotos[index].trim() !== "" && (
@@ -71,21 +71,21 @@ function LineaDeTiempo({ datos }) {
         ))}
       </div>
 
-      {/* Botones de navegación manual opcionales para pasar las fotos cómodamente */}
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', marginTop: '10px' }}>
+      {/* Botones de navegación manual hacia arriba y hacia abajo */}
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', marginTop: '12px' }}>
         <button 
-          onClick={() => desplazar('izquierda')} 
-          style={{ width: '40px', height: '40px', padding: '0', borderRadius: '50%', fontSize: '1.1rem', boxShadow: '0 3px 8px rgba(255,71,126,0.3)' }}
+          onClick={() => desplazar('arriba')} 
+          style={{ width: '40px', height: '40px', padding: '0', borderRadius: '50%', fontSize: '1.1rem', boxShadow: '0 3px 8px rgba(2,132,199,0.3)' }}
           title="Anterior"
         >
-          ❮
+          ▲
         </button>
         <button 
-          onClick={() => desplazar('derecha')} 
-          style={{ width: '40px', height: '40px', padding: '0', borderRadius: '50%', fontSize: '1.1rem', boxShadow: '0 3px 8px rgba(255,71,126,0.3)' }}
+          onClick={() => desplazar('abajo')} 
+          style={{ width: '40px', height: '40px', padding: '0', borderRadius: '50%', fontSize: '1.1rem', boxShadow: '0 3px 8px rgba(2,132,199,0.3)' }}
           title="Siguiente"
         >
-          ❯
+          ▼
         </button>
       </div>
     </div>
