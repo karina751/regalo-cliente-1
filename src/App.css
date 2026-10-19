@@ -364,21 +364,17 @@ button:active {
 /* ESTILOS PARA LA VENTANA FLOTANTE (MODAL) DEL VIDEO */
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(56, 44, 35, 0.6); /* Sombra marrón cálida translúcida */
-  backdrop-filter: blur(6px);
+  background: rgba(56, 44, 35, 0.65); /* Sombra marrón translúcida elegante */
+  backdrop-filter: blur(5px);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999; /* Asegura que esté por encima de todo */
-  padding: 15px;
+  z-index: 99999;
+  padding: 20px;
   box-sizing: border-box;
-  /* Evita que el fondo se mueva o haga scroll por detrás */
-  overflow: hidden;
-  touch-action: none;
 }
 
 .modal-contenido {
@@ -387,10 +383,11 @@ button:active {
   border-radius: 25px;
   max-width: 380px;
   width: 100%;
-  max-height: 90vh; /* Para que nunca desborde la pantalla vertical del celular */
-  overflow-y: auto;  /* Permite scroll interno solo si el contenido es muy largo */
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
   border: 3px solid #78716c;
   box-sizing: border-box;
-  animation: aparecer 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: aparecer 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  margin: auto; /* Fuerza el centrado absoluto en cualquier pantalla */
 }

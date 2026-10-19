@@ -1,5 +1,5 @@
 // src/components/VideoSorpresa.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 function VideoSorpresa({ datos, onCerrarSesion }) {
   const [globos, setGlobos] = useState([true, true, true]);
@@ -14,24 +14,6 @@ function VideoSorpresa({ datos, onCerrarSesion }) {
     const videoId = url.split('v=')[1]?.split('&')[0] || url.split('/').pop();
     return `https://www.youtube.com/embed/${videoId}?autoplay=1`;
   };
-
-  // Bloquear el scroll de la página física y fijar la vista exactamente donde está el usuario al abrir el modal
-  useEffect(() => {
-    if (modalAbierto) {
-      const scrollY = window.scrollY;
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = '100%';
-    } else {
-      const scrollY = document.body.style.top;
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      if (scrollY) {
-        window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
-      }
-    }
-  }, [modalAbierto]);
 
   const reventarGlobo = (index) => {
     const nuevosGlobos = [...globos];
