@@ -5,8 +5,8 @@ html, body {
   width: 100%;
   min-height: 100vh;
   font-family: 'Montserrat', sans-serif;
-  background: linear-gradient(135deg, #ffccd5, #ffe5ec);
-  color: #4a1525;
+  background: linear-gradient(135deg, #e0f2fe, #bae6fd); /* Fondo celeste suave */
+  color: #382c23; /* Marrón oscuro para texto general */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,15 +32,16 @@ html, body {
   box-sizing: border-box;
 }
 
+/* Pantalla de bloqueo */
 .pantalla-bloqueo {
   background: #ffffff;
   padding: 30px 20px;
   border-radius: 25px;
-  box-shadow: 0 15px 35px rgba(229, 107, 111, 0.2);
+  box-shadow: 0 15px 35px rgba(120, 100, 90, 0.15);
   text-align: center;
   max-width: 360px;
   width: 100%;
-  border: 3px solid #ff758c;
+  border: 3px solid #78716c; /* Marrón topo / cálido */
   box-sizing: border-box;
   animation: aparecer 0.8s ease-out forwards;
 }
@@ -48,23 +49,23 @@ html, body {
 input {
   padding: 12px;
   font-size: 16px;
-  border: 2px solid #ffb3c1;
+  border: 2px solid #7dd3fc; /* Celeste claro */
   border-radius: 12px;
   margin: 15px 0;
   width: 90%;
   text-align: center;
   outline: none;
   box-sizing: border-box;
-  background-color: #fff;
-  color: #4a1525;
+  background-color: #f8fafc;
+  color: #382c23;
 }
 
 input:focus {
-  border-color: #ff477e;
+  border-color: #0284c7; /* Celeste intenso */
 }
 
 button {
-  background: linear-gradient(135deg, #ff477e, #ff758c);
+  background: linear-gradient(135deg, #0284c7, #0369a1); /* Degradado celeste/azul elegante */
   color: white;
   border: none;
   padding: 14px 20px;
@@ -73,32 +74,33 @@ button {
   border-radius: 12px;
   cursor: pointer;
   width: 90%;
-  box-shadow: 0 5px 15px rgba(255, 71, 126, 0.4);
+  box-shadow: 0 5px 15px rgba(2, 132, 199, 0.3);
   transition: transform 0.2s, box-shadow 0.2s;
   box-sizing: border-box;
 }
 
 button:active {
   transform: scale(0.95);
-  box-shadow: 0 2px 8px rgba(255, 71, 126, 0.4);
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
 }
 
 .error {
-  color: #d90429;
+  color: #b45309; /* Marrón anaranjado/alerta cálido */
   font-size: 14px;
   margin-top: 10px;
   font-weight: 600;
 }
 
+/* CONTENEDOR PRINCIPAL DEL REGALO */
 .contenedor-regalo {
   background: #ffffff;
   padding: 30px 20px;
   border-radius: 30px;
-  box-shadow: 0 20px 40px rgba(214, 40, 57, 0.15);
+  box-shadow: 0 20px 40px rgba(56, 44, 35, 0.12);
   text-align: center;
   max-width: 400px;
   width: 100%;
-  border: 3px solid #ffccd5;
+  border: 3px solid #e2e8f0;
   box-sizing: border-box;
   animation: aparecer 0.8s ease-out forwards;
   margin: 20px auto;
@@ -122,9 +124,9 @@ button:active {
   font-family: 'Playfair Display', serif;
   font-size: 2.1rem;
   font-style: italic;
-  color: #d90429;
+  color: #451a03; /* Marrón café profundo */
   margin-bottom: 10px;
-  text-shadow: 1px 2px 4px rgba(217, 4, 41, 0.1);
+  text-shadow: 1px 2px 4px rgba(69, 26, 3, 0.08);
   animation: latido 2.5s infinite ease-in-out;
   padding: 0 10px;
   box-sizing: border-box;
@@ -132,7 +134,7 @@ button:active {
 
 .dedicatoria {
   font-size: 0.95rem;
-  color: #6c757d;
+  color: #78716c; /* Marrón grisáceo elegante */
   margin-bottom: 25px;
   font-style: italic;
   padding: 0 10px;
@@ -144,6 +146,7 @@ button:active {
   box-sizing: border-box;
 }
 
+/* ÁLBUM DE RECUERDOS */
 .seccion-album {
   width: 100%;
   margin: 30px 0;
@@ -153,7 +156,7 @@ button:active {
 .titulo-seccion {
   font-family: 'Playfair Display', serif;
   font-size: 1.6rem;
-  color: #ff477e;
+  color: #0369a1; /* Celeste/azul corporativo cálido */
   margin-bottom: 15px;
   font-style: italic;
   text-align: center;
@@ -177,12 +180,12 @@ button:active {
 }
 
 .tarjeta-momento {
-  background: #fff0f3;
+  background: #f0f9ff; /* Fondo celeste clarito muy sutil */
   padding: 15px;
   border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(255, 71, 126, 0.12);
+  box-shadow: 0 8px 20px rgba(2, 132, 199, 0.08);
   text-align: center;
-  border: 2px solid #ffb3c1;
+  border: 2px solid #bae6fd;
   min-width: 85%;
   max-width: 85%;
   flex-shrink: 0;
@@ -208,7 +211,7 @@ button:active {
 
 .texto-recuerdo {
   font-size: 0.9rem;
-  color: #4a1525;
+  color: #382c23;
   line-height: 1.5;
   margin: 0 0 10px 0;
   font-weight: 500;
@@ -216,17 +219,18 @@ button:active {
 
 .indicador-pagina {
   font-size: 0.75rem;
-  color: #ff477e;
+  color: #0284c7;
   font-weight: bold;
   letter-spacing: 1px;
 }
 
+/* SECCIÓN DE GLOBOS Y VIDEO */
 .seccion-interactiva-globos {
   margin-top: 30px;
   padding: 20px 10px;
-  background: #fff0f3;
+  background: #f0f9ff;
   border-radius: 25px;
-  border: 2px dashed #ff477e;
+  border: 2px dashed #0284c7;
   text-align: center;
   box-sizing: border-box;
   width: 100%;
@@ -235,7 +239,7 @@ button:active {
 .instruccion-globos {
   font-family: 'Playfair Display', serif;
   font-size: 1.1rem;
-  color: #d90429;
+  color: #451a03;
   font-weight: 600;
   margin-bottom: 15px;
   animation: latido 2s infinite ease-in-out;
@@ -251,7 +255,7 @@ button:active {
 }
 
 .globo-corazon {
-  background: linear-gradient(135deg, #ff477e, #ff758c);
+  background: linear-gradient(135deg, #38bdf8, #0284c7); /* Globos celestes brillantes */
   border: none;
   border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
   width: 55px;
@@ -261,7 +265,7 @@ button:active {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 5px 15px rgba(255, 71, 126, 0.4);
+  box-shadow: 0 5px 15px rgba(2, 132, 199, 0.3);
   animation: flotarGlobo 2s infinite ease-in-out alternate;
   transition: transform 0.2s, opacity 0.3s;
 }
@@ -283,16 +287,16 @@ button:active {
   background: #ffffff;
   padding: 15px;
   border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(214, 40, 57, 0.15);
+  box-shadow: 0 10px 25px rgba(56, 44, 35, 0.15);
   animation: aparecer 0.6s ease-out forwards;
 }
 
 .pantalla-final-amor {
-  background: linear-gradient(135deg, #fff0f3, #ffe5ec);
+  background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
   padding: 25px 15px;
   border-radius: 20px;
   text-align: center;
-  border: 2px solid #ffb3c1;
+  border: 2px solid #bae6fd;
   animation: aparecer 0.6s ease-out forwards;
 }
 
@@ -305,19 +309,19 @@ button:active {
 .titulo-final {
   font-family: 'Playfair Display', serif;
   font-size: 1.4rem;
-  color: #d90429;
+  color: #451a03;
   font-style: italic;
   margin-bottom: 8px;
 }
 
 .texto-final {
   font-size: 0.9rem;
-  color: #6c757d;
+  color: #78716c;
   margin-bottom: 15px;
 }
 
 .btn-reiniciar-experiencia {
-  background: #ff477e;
+  background: #0284c7;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -325,7 +329,7 @@ button:active {
   border-radius: 12px;
   cursor: pointer;
   font-weight: 600;
-  box-shadow: 0 4px 10px rgba(255, 71, 126, 0.3);
+  box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
   width: auto;
 }
 
@@ -339,7 +343,7 @@ button:active {
   overflow: hidden;
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
   background-color: #000;
-  border: 3px solid #ffb3c1;
+  border: 3px solid #bae6fd;
   width: 100%;
   box-sizing: border-box;
 }
@@ -357,7 +361,7 @@ button:active {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(74, 21, 37, 0.6);
+  background: rgba(56, 44, 35, 0.5); /* Sombra marrón cálida */
   backdrop-filter: blur(5px);
   display: flex;
   justify-content: center;
@@ -373,8 +377,8 @@ button:active {
   border-radius: 25px;
   max-width: 380px;
   width: 100%;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  border: 3px solid #ff758c;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  border: 3px solid #78716c;
   box-sizing: border-box;
   animation: aparecer 0.4s ease-out forwards;
 }
