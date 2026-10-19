@@ -23,7 +23,7 @@ function LineaDeTiempo({ datos }) {
       } else {
         contenedor.scrollBy({ left: anchoTarjeta, behavior: 'smooth' });
       }
-    }, 7000); // 7 segundos por imagen
+    }, 60000); // 1minutoundos por imagen
 
     return () => clearInterval(intervalo);
   }, [textos.length]);
