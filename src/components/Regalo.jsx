@@ -13,7 +13,8 @@ function Regalo({ datos, onCerrarSesion }) {
       <h1>{tituloRegalo}</h1>
       <p className="dedicatoria">{dedicatoria}</p>
 
-      {/* Reproductor de Spotify si existe */}
+      {/* Reproductor de Spotify comentado para este cliente */}
+      {/* 
       {urlCancionSpotify && (
         <div className="reproductor-spotify">
           <iframe
@@ -28,7 +29,8 @@ function Regalo({ datos, onCerrarSesion }) {
             title="Spotify Canción"
           ></iframe>
         </div>
-      )}
+      )} 
+      */}
 
       {/* Línea de tiempo / Álbum de fotos */}
       <LineaDeTiempo datos={datos} />
