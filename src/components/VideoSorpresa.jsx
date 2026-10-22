@@ -20,6 +20,7 @@ function VideoSorpresa({ datos, onCerrarSesion }) {
     nuevosGlobos[index] = false;
     setGlobos(nuevosGlobos);
 
+    // Si ya no quedan globos, abrimos la ventana flotante (modal) con el video
     if (nuevosGlobos.every((g) => g === false)) {
       setTimeout(() => {
         setModalAbierto(true);
@@ -64,6 +65,7 @@ function VideoSorpresa({ datos, onCerrarSesion }) {
         </p>
       </div>
 
+      {/* VENTANA FLOTANTE / MODAL CENTRADA */}
       {modalAbierto && (
         <div className="modal-overlay">
           <div className="modal-contenido">
@@ -117,8 +119,10 @@ function VideoSorpresa({ datos, onCerrarSesion }) {
             ) : (
               <div className="pantalla-final-amor">
                 <div className="pareja-animacion">👩‍❤️‍👨</div>
-                <h3 className="titulo-final">¡Cordón de tres dobleces no se rompe fácilmente!</h3>
-                <p className="texto-final">El amor se construye día a día con pequeños detalles.Yo la mas fria ❤️</p>
+                <h3 className="titulo-final">¡Cordón de tres dobleces no se rompe fácilmente!
+!</h3>
+                <p className="texto-final">El amor se construye día a día con pequeños detalles.
+Yo la mas fria. ❤️</p>
                 <button className="btn-reiniciar-experiencia" onClick={manejarCierreFinal}>
                   🔒 Volver al inicio 
                 </button>
