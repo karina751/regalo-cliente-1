@@ -117,7 +117,7 @@ function VideoSorpresa({ datos, onCerrarSesion }) {
             ) : (
               <div className="pantalla-final-amor">
                 <div className="pareja-animacion">👩‍❤️‍👨</div>
-                <h3 className="titulo-final">¡Por muchos momentos más juntos!</h3>
+                <h3 className="titulo-final">¡Cordón de tres dobleces no se rompe fácilmente!</h3>
                 <p className="texto-final">El amor se construye día a día con pequeños detalles. ❤️</p>
                 <button className="btn-reiniciar-experiencia" onClick={manejarCierreFinal}>
                   🔒 Volver al inicio 
